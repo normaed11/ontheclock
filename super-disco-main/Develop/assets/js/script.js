@@ -26,23 +26,38 @@ for (var i = 0; i < events.length; i++) {
     }
 }
 var eventdata = []
-eventdata = JSON.parse(localStorage.getItem("events"));
-if (!eventdata) {
-    eventdata = []
+if (localStorage.getItem("events") !== null) {
+
+
+    eventdata = JSON.parse(localStorage.getItem("events"));
+    console.log(eventdata)
+    for (var i = 0; i < events.length; i++) {
+        events[i].innerText = eventdata[i];
+    }
 }
+
+
+
 else {
     for (var i = 0; i < events.length; i++) {
+        eventdata.push("");
         events[i].innerText = eventdata[i];
     }
 
 }
 var btns = document.getElementsByClassName("saveBtn");
 for (var i = 0; i < btns.length; i++) {
+    var updatedevents = document.getElementsByClassName("event");
+    eventdata[i] = updatedevents[i].innerText;
+    console.log(eventdata)
     btns[i].addEventListener("click", function () {
-        eventdata[i] = events[i].innerText;
+
+
         localStorage.setItem("events", JSON.stringify(eventdata));
 
     })
 }
-
-
+$(".row").on("click", ".saveBtn", function () {
+    var text = $(this).children("event").text().trim();
+    console.log(text)
+});
