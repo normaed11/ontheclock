@@ -7,7 +7,7 @@ var day = (new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
 }).format(date));
 document.getElementById("currentDay").innerHTML = day;
-
+// gets current hour and color codes time block
 var hour = Number(new Intl.DateTimeFormat('en-US', {
     hour: 'numeric',
     hourCycle: "h24"
@@ -25,6 +25,7 @@ for (var i = 0; i < events.length; i++) {
         events[i].classList.add("past");
     }
 }
+// get text from local storage and displays it
 var eventdata = []
 if (localStorage.getItem("events") !== null) {
 
@@ -35,29 +36,21 @@ if (localStorage.getItem("events") !== null) {
         events[i].innerText = eventdata[i];
     }
 }
-
-
-
+// if no local storage then display blank strings  
 else {
     for (var i = 0; i < events.length; i++) {
         eventdata.push("");
-        events[i].innerText = eventdata[i];
+        events[i].innerHTML = eventdata[i];
     }
 
 }
-var btns = document.getElementsByClassName("saveBtn");
-for (var i = 0; i < btns.length; i++) {
-    var updatedevents = document.getElementsByClassName("event");
-    eventdata[i] = updatedevents[i].innerText;
-    console.log(eventdata)
-    btns[i].addEventListener("click", function () {
 
-
-        localStorage.setItem("events", JSON.stringify(eventdata));
-
-    })
-}
+//get event texts and saves it to local storage 
 $(".row").on("click", ".saveBtn", function () {
-    var text = $(this).children("event").text().trim();
-    console.log(text)
+    var sibling = $(this).siblings(".event");
+    var index = parseInt(sibling[0].getAttribute("data-hour")) - 9;
+    console.log(sibling)
+    eventdata[index] = sibling.text();
+    localStorage.setItem("events", JSON.stringify(eventdata));
+
 });
