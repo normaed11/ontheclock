@@ -3,3 +3,4 @@
 
 
 [ On the clock link](https://normaed11.github.io/ontheclock/)
+![on the clock image](./assets/images/ontheclockimage.png)
